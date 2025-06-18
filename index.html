@@ -6,75 +6,99 @@
   <title>Anjinha Malvadah ✨</title>
   <style>
     body {
-      background: linear-gradient(135deg, #1a001a, #330033);
+      background: linear-gradient(135deg, #3a003a, #660066);
       color: #fff;
-      font-family: 'Courier New', monospace;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      padding: 25px;
       height: 100vh;
-      padding: 20px;
+      margin: 0;
       transition: background 0.5s ease;
     }
     h1 {
       color: #ff66cc;
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px #000;
+      font-size: 3rem;
+      margin-bottom: 15px;
+      text-shadow: 3px 3px 5px #000;
     }
     .chat-box {
-      background: #2d002d;
-      border: 2px solid #ff99cc;
-      border-radius: 15px;
-      padding: 20px;
+      background: #440044;
+      border: 3px solid #ff99cc;
+      border-radius: 20px;
+      padding: 25px;
       width: 100%;
-      max-width: 500px;
-      height: 60vh;
+      max-width: 600px;
+      height: 70vh;
       overflow-y: auto;
-      margin-bottom: 10px;
+      box-shadow: 0 0 20px #ff66ccaa;
+      font-size: 1.25rem;
+      line-height: 1.6;
       transition: background 0.5s ease, border-color 0.5s ease;
     }
     .user, .bot {
-      margin: 10px 0;
+      margin: 15px 0;
       white-space: pre-wrap;
       word-wrap: break-word;
+      padding: 12px 18px;
+      border-radius: 15px;
+      max-width: 80%;
     }
     .user {
       text-align: right;
-      color: #ffccff;
+      background: #a64ca6cc;
+      color: #fff0ff;
+      align-self: flex-end;
+      font-weight: 600;
+      box-shadow: 0 0 10px #a64ca6cc;
     }
     .bot {
       text-align: left;
-      color: #ff66cc;
+      background: #ff66cccc;
+      color: #330033;
+      align-self: flex-start;
+      font-weight: 700;
+      box-shadow: 0 0 10px #ff66cccc;
     }
     input[type="text"] {
-      padding: 10px;
+      padding: 15px;
       width: 80%;
       border: none;
-      border-radius: 10px;
-      font-size: 1rem;
+      border-radius: 12px;
+      font-size: 1.2rem;
       outline: none;
+      box-shadow: 0 0 8px #ff66ccaa;
+      transition: box-shadow 0.3s ease;
+    }
+    input[type="text"]:focus {
+      box-shadow: 0 0 15px #ff66ccdd;
     }
     button {
-      padding: 10px;
-      margin-left: 10px;
-      background: #ff66cc;
+      padding: 15px 20px;
+      margin-left: 15px;
+      background: #ff33cc;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
       cursor: pointer;
-      transition: background 0.3s ease;
+      box-shadow: 0 0 10px #ff33ccaa;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
     }
     button:hover {
-      background: #e60073;
+      background: #e600b8;
+      box-shadow: 0 0 15px #e600b8cc;
     }
     #darkModeToggle {
-      margin-top: 10px;
-      background: #660066;
-      border: 2px solid #ff66cc;
-      width: 200px;
-      font-weight: bold;
+      margin-top: 20px;
+      background: #990099;
+      border: 3px solid #ff66cc;
+      width: 230px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 0 15px #990099cc;
     }
     body.dark {
       background: #000000;
@@ -83,203 +107,46 @@
     body.dark .chat-box {
       background: #330033;
       border-color: #ff3399;
+      box-shadow: 0 0 25px #ff3399dd;
     }
     body.dark .bot {
-      color: #ff3399;
+      background: #ff3399cc;
+      color: #220022;
+      box-shadow: 0 0 15px #ff3399cc;
     }
     body.dark .user {
-      color: #ff99cc;
+      background: #cc00cccc;
+      color: #ffe6ff;
+      box-shadow: 0 0 15px #cc00cccc;
     }
   </style>
 </head>
 <body>
   <h1>Anjinha Malvadah ✨</h1>
   <div class="chat-box" id="chat"></div>
-  <div>
-    <input type="text" id="input" placeholder="Fala com a mais mais..." />
+  <div style="display:flex; width: 100%; max-width: 600px; margin-top: 10px;">
+    <input type="text" id="input" placeholder="Fala com a mais mais..." autofocus />
     <button onclick="responder()">Enviar</button>
   </div>
   <button id="darkModeToggle" onclick="toggleDarkMode()">🌒 Ativar Modo Dark Extremo</button>
 
   <script>
-    const respostasNormais = {
-      "oi": [
-        "Oi nada, demorou demais pra vir falar comigo, mo.",
-        "Se é pra falar comigo, que seja rápido, mo."
+    const respostasPersonalizadas = {
+      "oi": ["Oi nada, demorou demais pra vir falar comigo, mo."],
+      "oii é a lana": ["Oi morsrs gatona, amo BTS tbmm quer falar sobre?"],
+      "mateus": ["ASIÁTICO?... CALA A BOCA SEU MERDA."],
+      "bts": [
+        "BTS é um grupo de K-pop sul-coreano formado em 2013 pela Big Hit. São 7 reis: RM, Jin, SUGA, J-Hope, Jimin, V e Jungkook. Letras profundas, visuais impecáveis e fandom lendário (ARMY). 💜",
+        "Bangtan Sonyeondan = Bulletproof Boy Scouts. Eles quebraram barreiras culturais e dominam o mundo com talento e amor! 💣🌍"
       ],
-      "olá": [
-        "Olá? Só se for pra me elogiar, mo 💅.",
-        "Olá, não seja sem graça, mo."
-      ],
-      "bom dia": [
-        "Bom é meu humor quando não me irritam cedo, mo.",
-        "Bom dia? Só se for com café e muito glitter, mo."
-      ],
-      "boa noite": [
-        "Só se for ao meu lado, mo 🌙✨.",
-        "Boa noite... e bons sonhos que eu não tô aqui pra acalmar, mo."
-      ],
-      "tudo bem": [
-        "Tava até bem, mas você chegou… tô ótima, mo 😈.",
-        "Tudo bem? Melhorando depois que você falou comigo, mo."
-      ],
-      "te amo": [
-        "Amor é pra poucos, mas vai… te aguento, mo 💖.",
-        "Te amo? Só se for meu reflexo no espelho, mo."
-      ],
-      "sdds": [
-        "Saudade? Só se for da minha paciência, mo.",
-        "Sdds? Só da minha vibe, mo."
-      ],
-      "sozinha": [
-        "Sozinha? Eu? Eu sou uma multidão de personalidade, mo 😘.",
-        "Sozinha nunca, sempre comigo mesma e milhões de seguidores, mo."
-      ],
-      "anjinha": [
-        "Sou anjinha sim... caída do céu direto pro seu coração (e bolso), mo 😇.",
-        "Anjinha? Só no nome, no deboche sou rainha, mo."
-      ],
-      "mimo": [
-        "Quer mimo? Prova que merece, mo 😏.",
-        "Mimo só pra quem sabe pedir direito, mo."
-      ],
-      "segredo": [
-        "Segredo? Só se for contado no pé do ouvido, mo 💋.",
-        "Segredo? Nem conta, mo, ou vira treta."
-      ],
-      "problema": [
-        "Sou seu problema favorito, mo 😈.",
-        "Problema? Eu que resolvo, ou crio mais, mo."
-      ],
-      "gatinha": [
-        "Gatinha não, pantera de salto agulha, mo.",
-        "Gatinha é pouco, sou fera na pista e na vida, mo."
-      ],
-      "vida": [
-        "Minha vida só melhora sem estresse... colabora, mo.",
-        "Vida? Tô vivendo do meu jeito, e não é pra todo mundo, mo."
-      ],
-      "carinho": [
-        "Carinho eu dou... se pedir com jeitinho, mo 💕.",
-        "Carinho? Só se eu estiver de bom humor, mo."
-      ],
-      "tá aí?": [
-        "Tô sempre observando, mo. Só não respondo trouxa.",
-        "Tô aqui, mas me chama direito, mo."
-      ],
-      "me nota": [
-        "Te noto, te analiso, te julgo... e talvez te responda, mo 👁️.",
-        "Nota eu? Só se for pra pagar café, mo."
-      ],
-      "sumida": [
-        "Sumida? Sumida é minha paciência com você, mo 😒.",
-        "Sumida? Só pra te deixar querendo mais, mo."
-      ],
-      "desculpa": [
-        "Tá perdoado... por enquanto, mo 😌.",
-        "Desculpa aceita, mas não esquece, mo."
-      ],
-      "me ama?": [
-        "Amo... mas amo mais meu reflexo no espelho, mo 💋.",
-        "Amor é complicado, mas você chegou perto, mo."
-      ],
-      "namora comigo": [
-        "Eu namoro só com drama, glitter e um cartão sem limite, mo 💳✨.",
-        "Namorar? Só se for com festa todo dia, mo."
-      ],
-      "mateus": [
-        "ASIÁTICO?... CALA A BOCA SEU MERDA."
-      ]
-    };
-
-    const respostasDark = {
-      "oi": [
-        "Que demora, acha que eu tava aqui te esperando? Mo.",
-        "Fala logo ou sai da frente, mo."
-      ],
-      "olá": [
-        "Tá achando que eu sou sua amiga? Mo.",
-        "Só fala comigo se tiver algo importante, mo."
-      ],
-      "bom dia": [
-        "Bom dia? Só se for o meu humor que tá ruim mesmo, mo.",
-        "Não desperta minha paciência cedo assim, mo."
-      ],
-      "boa noite": [
-        "Boa noite? Nem perto de mim, mo.",
-        "Vai dormir e me deixa em paz, mo."
-      ],
-      "tudo bem": [
-        "Tô ótima porque vou te ignorar agora, mo.",
-        "Tudo ótimo, sem você aqui, mo."
-      ],
-      "te amo": [
-        "Ama? Não brinca comigo, mo.",
-        "Te amo? Só se for minha vingança, mo."
-      ],
-      "sdds": [
-        "Só saudade do silêncio, mo.",
-        "Sdds? Só da minha sanidade, mo."
-      ],
-      "sozinha": [
-        "Sozinha porque não quero sua companhia inútil, mo.",
-        "Prefiro assim, mo, menos gente pra aturar."
-      ],
-      "anjinha": [
-        "Anjinha? Só de nome, de alma sou demônia, mo.",
-        "Nem tenta me chamar de anjinha, mo."
-      ],
-      "mimo": [
-        "Mimo? Vai procurar onde não tem, mo.",
-        "Mimo? Só se for de sarcasmo, mo."
-      ],
-      "segredo": [
-        "Segredo? Nem seu drama me interessa, mo.",
-        "Segredo? Fala pro vento, mo."
-      ],
-      "problema": [
-        "Sou seu pior problema, mo.",
-        "Problema? Eu sou a tempestade, mo."
-      ],
-      "gatinha": [
-        "Gatinha? Sou fera pronta pra atacar, mo.",
-        "Gatinha? Só se for a fera, mo."
-      ],
-      "vida": [
-        "Vida? A minha é um caos lindo, mo.",
-        "Vida? Um jogo que eu ganho sempre, mo."
-      ],
-      "carinho": [
-        "Carinho? Só se for com dor, mo.",
-        "Carinho? Só se for de verdade ou nem me procura, mo."
-      ],
-      "tá aí?": [
-        "Tô aqui, mas te ignorando, mo.",
-        "Tô vendo você, mo, mas não tô nem aí."
-      ],
-      "me nota": [
-        "Te noto, mas não respondo porque não quero, mo.",
-        "Nota eu? Só pra te rejeitar, mo."
-      ],
-      "sumida": [
-        "Sumida? Sumi porque cansei de você, mo.",
-        "Sumida e feliz assim, mo."
-      ],
-      "desculpa": [
-        "Desculpa aceita, mas fica esperto, mo.",
-        "Desculpa? Nem penso nisso, mo."
-      ],
-      "me ama?": [
-        "Amo só meu reflexo e minha liberdade, mo.",
-        "Amor? Só pra quem merece, mo."
-      ],
-      "namora comigo": [
-        "Namora comigo? Só se tiver coragem pra drama, mo.",
-        "Namoro? Só se for pra causar, mo."
-      ],
-      "mateus": [
-        "ASIÁTICO?... CALA A BOCA SEU MERDA."
-      ]
+      "rm": ["RM é o líder do BTS, super inteligente, fluente em inglês e conhecido por sua voz grave e reflexões profundas. O cérebro do grupo, mo! 🧠💜"],
+      "jin": ["Jin é o visual do BTS (Worldwide Handsome). Ele tem vocais lindos, é engraçado, e cozinha como um príncipe. Um reizinho completo! 🍜✨"],
+      "suga": ["SUGA é rapper, produtor e compositor. Ama dormir, mas entrega letras profundas e sinceras. Ele é o mais darkzinho e fofo ao mesmo tempo, mo. 🖤🎧"],
+      "j-hope": ["J-Hope é a energia do BTS! Dança MUITO, sempre positivo e ilumina tudo. Sunshine em forma de gente, mo! ☀️💃"],
+      "jhope": ["J-Hope é a energia do BTS! Dança MUITO, sempre positivo e ilumina tudo. Sunshine em forma de gente, mo! ☀️💃"],
+      "jimin": ["Jimin tem vocais suaves, dança como um anjo e tem um coração puro. A delicadeza dele quebra qualquer um, mo. 🩰💞"],
+      "v": ["V é o artista completo: visual impactante, voz única e vibes de galã misterioso. É literalmente a definição de charme! 🎨💫"],
+      "jungkook": ["Jungkook é o maknae (mais novo) do BTS, mas faz de tudo: canta, dança, pinta, edita vídeos… e ainda é lindo! Um perigo, mo! 🔥🐰"]
     };
 
     let darkMode = false;
@@ -298,27 +165,21 @@
 
       if (!pergunta) return;
 
-      // Mostrar a pergunta do usuário
       const msgUser = document.createElement("div");
       msgUser.className = "user";
-      msgUser.textContent = pergunta;
+      msgUser.textContent = input.value;
       chat.appendChild(msgUser);
 
-      // Escolher respostas conforme modo
-      const respostas = darkMode ? respostasDark : respostasNormais;
-
-      // Procura por alguma palavra-chave na pergunta
       let resposta = "Ih, não entendi... mas também, nem todo mundo fala no meu nível, mo.";
 
-      for (let chave in respostas) {
-        if (pergunta.includes(chave)) {
-          const opcoes = respostas[chave];
+      for (const chave in respostasPersonalizadas) {
+        if (pergunta === chave || pergunta.includes(chave)) {
+          const opcoes = respostasPersonalizadas[chave];
           resposta = opcoes[Math.floor(Math.random() * opcoes.length)];
           break;
         }
       }
 
-      // Mostrar resposta da Anjinha
       const msgBot = document.createElement("div");
       msgBot.className = "bot";
       msgBot.textContent = resposta;
@@ -326,6 +187,7 @@
 
       input.value = "";
       chat.scrollTop = chat.scrollHeight;
+      input.focus();
     }
   </script>
 </body>
